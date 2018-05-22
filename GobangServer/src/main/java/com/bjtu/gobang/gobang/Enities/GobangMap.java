@@ -4,7 +4,42 @@ public class GobangMap {
 
     int currentColor;
     public Vex[][] map=new Vex[15][15];
-    boolean overFlag;
+    int overFlag;//0是匹配，1是游戏，2是结束
+    int tag;
+    int lastPlayer=0;
+
+    public int getLastPlayer() {
+        return lastPlayer;
+    }
+
+    public void setLastPlayer(int lastPlayer) {
+        this.lastPlayer = lastPlayer;
+    }
+
+    public Player getP1() {
+        return p1;
+    }
+
+    public int getOverFlag() {
+        return overFlag;
+    }
+
+    public void setOverFlag(int overFlag) {
+        this.overFlag = overFlag;
+    }
+
+    public void setP1(Player p1) {
+        this.p1 = p1;
+    }
+
+    public Player getP2() {
+        return p2;
+    }
+
+    public void setP2(Player p2) {
+        this.p2 = p2;
+    }
+
     Player p1;
     Player p2;
 
@@ -16,6 +51,24 @@ public class GobangMap {
                 map[i][j]=new Vex(-1, -1, -1, -1);
             }
         }
+        overFlag=0;
+    }
+
+
+    public int getCurrentColor() {
+        return currentColor;
+    }
+
+    public void setCurrentColor(int currentColor) {
+        this.currentColor = currentColor;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 
     // 根据数组，判断棋形

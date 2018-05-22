@@ -1,12 +1,14 @@
 package com.bjtu.gobang.gobang.Controllers;
 
 
+import com.bjtu.gobang.gobang.Enities.GobangMap;
 import com.bjtu.gobang.gobang.Enities.Player;
 import com.bjtu.gobang.gobang.ServiceImp.PlayerServiceImp;
 
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,18 +23,11 @@ public class PlayerController {
 
 
     @PostMapping("/player/addPlayer")
-    public ResponseEntity<Void> addUser(@RequestBody Player player, HttpServletResponse rsp){
-
+    public GobangMap addUser(@RequestBody Player player){
 
         System.out.println(player.getUsername());
-        boolean res=ser.addUser(player);
-        if(res){
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        else
-            return new ResponseEntity<>(HttpStatus.IM_USED);
-
-
+        GobangMap res=ser.addUser(player);
+       return res;
     }
 
     @RequestMapping(value = "/players",method = RequestMethod.GET)
@@ -42,10 +37,18 @@ public class PlayerController {
     }
 
     @PostMapping("/players/down")
-    public String down(@RequestParam("i") int i,@RequestParam("j")int j,@RequestParam("color") int color){
-        String res=null;
+    public GobangMap down(@RequestParam("i") int i,@RequestParam("j")int j,@RequestParam("color") int color,
+                     @RequestParam("tag") int tag,@RequestParam("count") int count){
 
+        GobangMap res=ser.down(i,j,color,tag,count);
 
         return res;
     }
+
+    @GetMapping("player/{index}")
+    public GobangMap getMapByIndex(@PathVariable("index") int index){
+        GobangMap temp=ser.getMap(index);
+        return temp;
+    }
+
 }
